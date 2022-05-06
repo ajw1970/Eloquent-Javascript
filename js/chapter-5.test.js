@@ -43,3 +43,43 @@ describe('listToArray', () => {
         expect(result).toEqual(expect.arrayContaining(expected));
     })
 })
+
+describe('prepend', () => {
+
+    function prepend(element, list) {
+        return {
+            value: element,
+            rest: list,
+        };
+    }
+
+    it('adds the element to the front of the input list', () => {
+        let result = prepend(10, prepend(20, null));
+
+        let expected = { value: 10, rest: { value: 20, rest: null } };
+
+        expect(result).toStrictEqual(expected);
+    })
+})
+
+describe('nth', () => {
+
+    function nth(list, index) {
+
+    }
+
+    it('returns the element at the given position in the list (with zero referring to the first element) or undefined when there is no such element', () => {
+        let result = nth({
+            value: 10,
+            rest: {
+                value: 20,
+                rest: {
+                    value: 30,
+                    rest: null
+                }
+            }
+        }, 1);
+
+        expect(result).toBe(20);
+    })
+})
