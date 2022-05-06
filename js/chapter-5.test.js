@@ -1,3 +1,5 @@
+const { describe, it, expect } = require('@jest/globals');
+
 describe('ArrayToList', () => {
 
     function arrayToList(arr) {
@@ -18,5 +20,26 @@ describe('ArrayToList', () => {
         let expected = {value: 10, rest: {value: 20, rest: null}};
 
         expect(result).toStrictEqual(expected);
-    });
-});
+    })
+})
+
+describe('listToArray', () => {
+
+    function listToArray(list) {
+        let result = [];
+        while (list.rest !== null) {
+            result.push(list.value);
+            list = list.rest;
+        }
+        result.push(list.value);
+        return result;
+    }
+
+    it('produces array from a list', () => {
+        let result = listToArray({ value: 10, rest: { value: 20, rest: null } });
+
+        let expected = [10, 20];
+
+        expect(result).toEqual(expect.arrayContaining(expected));
+    })
+})
