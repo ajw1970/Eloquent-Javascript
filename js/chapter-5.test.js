@@ -32,6 +32,31 @@ function nth(list, index) {
     return listToArray(list)[index];
 }
 
+function deepEqual(a, b) {
+    if (typeof a === 'object' && a !== null && typeof b === 'object' && b !== null) {
+
+        var aKeys = Object.keys(a);
+        var bKeys = Object.keys(b);
+
+        if (!aKeys.every(k => aKeys[k] === bKeys[k]) || aKeys.length != bKeys.length) {
+            //Differing property names or number of properties
+            return false;
+        }
+
+        for (let key of Object.keys(a)) {
+            if (!deepEqual(a[key], b[key])) {
+                //found an unequal value
+                return false;
+            }
+        }
+
+        //these are equal values all the way down
+        return true;
+    }
+
+    return a === b;
+}
+
 describe('ArrayToList', () => {
     it('builds up list structure', () => {
         let result = arrayToList([10,20]);
@@ -79,30 +104,6 @@ describe('nth', () => {
 
 describe('deepEqual', () => {
 
-    function deepEqual(a, b) {
-        if (typeof a === 'object' && a !== null && typeof b === 'object' && b !== null) {
-
-            var aKeys = Object.keys(a);
-            var bKeys = Object.keys(b);
-
-            if (!aKeys.every(k => aKeys[k] === bKeys[k]) || aKeys.length != bKeys.length) {
-                //Differing property names or number of properties
-                return false;
-            }
-
-            for (let key of Object.keys(a)) {
-                if (!deepEqual(a[key], b[key])) {
-                    //found an unequal value
-                    return false;
-                }
-            }
-
-            //these are equal values all the way down
-            return true;
-        }
-
-        return a === b;
-    }
 
     it('returns true if they are the same value', () => {
 
