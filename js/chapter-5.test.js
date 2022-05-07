@@ -76,3 +76,53 @@ describe('nth', () => {
         expect(result).toBeUndefined();
     })
 })
+
+describe('deepEqual', () => {
+
+    function deepEqual(a, b) {
+        if (typeof a === 'object' && a !== null && typeof b === 'object' && b !== null) {
+
+            var aKeys = Object.keys(a);
+            var bKeys = Object.keys(b);
+
+            if (!aKeys.every(k => aKeys[k] === bKeys[k]) || aKeys.length != bKeys.length) {
+                //Differing property names or number of properties
+                return false;
+            }
+
+            for (let key of Object.keys(a)) {
+                if (!deepEqual(a[key], b[key])) {
+                    //found an unequal value
+                    return false;
+                }
+            }
+
+            //these are equal values all the way down
+            return true;
+        }
+
+        return a === b;
+    }
+
+    it('returns true if they are the same value', () => {
+
+        expect(deepEqual(1, '1')).toBe(false);
+
+        expect(deepEqual(2, 2)).toBe(true);
+
+        let obj = { here: { is: "an" }, object: 2 };
+
+
+
+    })
+
+    it('returns true if they are objects with the same properties, where the values of the properties are equal when compared with a recursive call', () => {
+
+        let obj = { here: { is: "an" }, object: 2 };
+
+        expect(deepEqual(obj, { here: 1, object: 2 })).toBe(false);
+
+        expect(deepEqual(obj, { here: { is: "an" }, object: 2 })).toBe(true);
+
+    })
+})
