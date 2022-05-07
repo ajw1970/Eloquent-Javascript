@@ -7,7 +7,6 @@ function arrayToList(arr) {
             value: arr[i],
             rest: list.hasOwnProperty("value") ? list : null,
         };
-        console.log(list.hasOwnProperty("value"));
     }
     return list;
 }
