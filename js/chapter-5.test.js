@@ -29,6 +29,10 @@ function prepend(element, list) {
     };
 }
 
+function nth(list, index) {
+    return listToArray(list)[index];
+}
+
 describe('ArrayToList', () => {
     it('builds up list structure', () => {
         let result = arrayToList([10,20]);
@@ -60,10 +64,6 @@ describe('prepend', () => {
 })
 
 describe('nth', () => {
-
-    function nth(list, index) {
-        return listToArray(list)[index];
-    }
 
     it('returns the element at the given position in the list (with zero referring to the first element)', () => {
         let result = nth(arrayToList([10, 20, 30]), 1);
