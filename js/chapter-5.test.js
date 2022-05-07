@@ -110,10 +110,6 @@ describe('deepEqual', () => {
 
         expect(deepEqual(2, 2)).toBe(true);
 
-        let obj = { here: { is: "an" }, object: 2 };
-
-
-
     })
 
     it('returns true if they are objects with the same properties, where the values of the properties are equal when compared with a recursive call', () => {
