@@ -1,5 +1,3 @@
-const { describe, it, expect } = require('@jest/globals');
-
 describe('prototypes', () => {
     it('empty object has Object.prototype', () => {
         expect(Object.getPrototypeOf({})).toStrictEqual(Object.prototype);
@@ -16,5 +14,4 @@ describe('prototypes', () => {
     it('empty array has Array.prototype', () => {
         expect(Object.getPrototypeOf([])).toStrictEqual(Array.prototype);
     })
-
 })
