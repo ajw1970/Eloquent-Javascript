@@ -36,3 +36,30 @@ describe('loop', () => {
         }
     }
 })
+
+describe('everyWithLoop', () => {
+    it('returns true when the given function returns true for every element in the array', () => {
+        expect(every([1, 3, 5], n => n < 10)).toBe(true);
+        expect(every([2, 4, 16], n => n < 10)).toBe(false);
+        expect(every([], n => n < 10)).toBe(true);
+    })
+
+    function every(array, test) {
+        for (let e of array) {
+            if (!test(e)) return false;
+        }
+        return true;
+    }
+})
+
+describe('everyWithSome', () => {
+    it('returns true when the given function returns true for every element in the array', () => {
+        expect(every([1, 3, 5], n => n < 10)).toBe(true);
+        expect(every([2, 4, 16], n => n < 10)).toBe(false);
+        expect(every([], n => n < 10)).toBe(true);
+    })
+
+    function every(array, test) {
+        return !array.some(e => !test(e));
+    }
+})
