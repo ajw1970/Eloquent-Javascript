@@ -5,6 +5,10 @@ describe('prototypes', () => {
         expect(Object.getPrototypeOf({})).toStrictEqual(Object.prototype);
     })
 
+    it('Object.prototype has no prototype', () => {
+        expect(Object.getPrototypeOf(Object.prototype)).toBeNull();
+    })
+
     it('Math.max has Function.prototype', () => {
         expect(Object.getPrototypeOf(Math.max)).toStrictEqual(Function.prototype);
     })
