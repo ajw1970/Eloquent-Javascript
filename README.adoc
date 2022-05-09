@@ -1,0 +1,5 @@
+= Exploring Eloquent Javascript book
+
+link:https://eloquentjavascript.net[Eloquent Javascript^]
+
+This repository contains my tests written to drive implementation of examples starting with chapter 4. 
