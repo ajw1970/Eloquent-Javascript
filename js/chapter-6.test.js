@@ -57,3 +57,47 @@ describe('Vec', () => {
         expect(new Vec(3, 4).length).toStrictEqual(5);
     })
 })
+
+describe('Group', () => {
+    class Group {
+        constructor() {
+            this._group = [];
+        }
+
+        get isEmpty() { return this._group.length === 0 }
+
+        add(value) { this._group.push(value); }
+
+        has(value) { return this._group.indexOf(value) >= 0; }
+
+        delete(value) {
+            let index = this._group.indexOf(value);
+            if (index >= 0) {
+                delete this._group[index];
+            }
+        }
+
+        static from(iterable) {
+            let newGroup = new Group();
+            iterable.forEach(v => newGroup.add(v));
+            return newGroup;
+        }
+    }
+    it('Its constructor creates an empty group', () => {
+        let group = new Group();
+        expect(group.isEmpty).toStrictEqual(true);
+    })
+
+    it('a static from method that takes an iterable object as argument and creates a group that contains all the values produced by iterating over it', () => {
+        let group = Group.from([10, 20]);
+        expect(group.has(10)).toStrictEqual(true);
+    })
+
+    it('a static from method that takes an iterable object as argument and creates a group that contains all the values produced by iterating over it', () => {
+        let group = Group.from([10, 20]);
+        expect(group.has(10)).toStrictEqual(true);
+
+        group.delete(10);
+        expect(group.has(10)).toStrictEqual(false);
+    })
+})
