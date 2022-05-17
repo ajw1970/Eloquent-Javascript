@@ -82,7 +82,26 @@ describe('Group', () => {
             iterable.forEach(v => newGroup.add(v));
             return newGroup;
         }
+
+        [Symbol.iterator]() {
+            // Use a new index for each iterator. This makes multiple
+            // iterations over the iterable safe for non-trivial cases,
+            // such as use of break or nested looping over the same iterable.
+            let index = 0;
+
+            return {
+                next: () => {
+                    if (index < this._group.length) {
+                        return { value: this._group[index++], done: false }
+                    } else {
+                        return { done: true }
+                    }
+                }
+            }
+        }
     }
+
+
     it('Its constructor creates an empty group', () => {
         let group = new Group();
         expect(group.isEmpty).toStrictEqual(true);
@@ -99,5 +118,18 @@ describe('Group', () => {
 
         group.delete(10);
         expect(group.has(10)).toStrictEqual(false);
+    })
+
+    it('implements iterable interface', () => {
+        const logSpy = jest.spyOn(console, 'log');
+
+        for (let value of Group.from(["a", "b", "c"])) {
+            console.log(value);
+        }
+
+        expect(logSpy).toHaveBeenNthCalledWith(1, "a");
+        expect(logSpy).toHaveBeenNthCalledWith(2, "b");
+        expect(logSpy).toHaveBeenNthCalledWith(3, "c");
+
     })
 })
