@@ -133,3 +133,15 @@ describe('Group', () => {
 
     })
 })
+
+describe('Borrowing a method', () => {
+    it('handles object with hasOwnProperty property', () => {
+        let map = { one: true, two: true, hasOwnProperty: true };
+
+        expect(() => {
+            map.hasOwnProperty("one");
+        }).toThrowError("not a function");
+
+        expect(Object.prototype.hasOwnProperty.call(map, "one")).toBe(true);
+    });
+})
